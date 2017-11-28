@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div *ngIf="error"  class="alert alert-danger">
+  {{error}}
+  </div>
+  <table class="table table-striped table-hover col-md-9">
+      <thead>
+        <tr>
+          <th>username</th>
+          <th>role</th>
+          <th>actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" 
+          [ngClass]="{info:(user['role']==='Admin'),
+          danger:(user['blocked'])}">
+          <td  routerLink="/user/{{user['_id']}}">{{user.username}}</td>          
+          <td >
+            <select class="form-control" (change)="changeUserRole($event.target.value, user)" [(ngModel)]="user['role']" id="select">
+              <option>User</option>
+              <option>Admin</option>
+            </select>
+          </td>
+          <td >
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" (change)="changeUserBlocked(user)" [(ngModel)]="user['blocked']" > Blocked
+              </label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table> 
+</div>

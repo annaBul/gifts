@@ -1,0 +1,15 @@
+<div class="col-sm-3 col-md-3">
+  <div class="thumbnail col-md-11" routerLink='/project/{{project.title}}' >
+    <img id="img-project" src="{{project['imageUrl']}}" alt="" (load)='progress()'>
+    <div class="progress" >
+        <div #progress class="progress-bar progress-bar-info" id="progress_{{project['id']}}" style="width: 0%"></div>
+    </div>
+    <br>
+    <div class="col-md-offset-1">
+      <h5 id="project-title">{{project.title}}</h5>   
+      <h6 >Author:  {{project.author.username}}</h6>   
+      <h6 >Funded:  {{project.createdDate | date}}</h6>   
+    </div>
+    <!--p><a class="btn btn-info col-md-12" role="button" (click)="progress()">Read more</a></p--> 
+  </div>
+</div>

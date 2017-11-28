@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container"> 
+  <tabset class="col-md-offset-1 col-md-11">
+      <tab title="Люди" [active]="true">
+        <p *ngFor="let person of people">
+           <!--app-card [person]="person"></app-card-->
+        </p>
+        <div class="col-md-offset-1" *ngIf="people.length === 0" >
+            <h1>Нет людей</h1>
+        </div>
+
+      </tab>
+      <tab title="Избранное">
+        <p *ngFor="let gift of favorites">
+           <gift-card [gift]="gift"></gift-card>
+        </p>
+        <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
+            <h1>Нет подарков в избранное</h1>
+        </div>
+
+      </tab>
+  </tabset>
+</div>

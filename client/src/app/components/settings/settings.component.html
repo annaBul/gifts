@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="container" > 
+  <br>
+  <br>
+  <div  class="col-sm-4 col-md-offset-3 col-md-7" >
+    
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="alert col-sm-offset-2 col-sm-8" role="alert">
+                {{message}}
+            </div>
+          </div>
+      <fieldset>
+        <legend>Account settings</legend>        
+        <div class="form-group block img-block col-md-offset-3 col-md-12">
+          <div  class=" col-md-offset-1 col-md-2 user-img">
+            <img id='user-image' src="{{user['imageUrl']}}" >
+          </div>
+          <div class="col-md-8">
+            <div class="img_upload">
+                <div class="img-label">Change profile image</div>
+                <input type="file" (change)="uploadFile($event)">
+                
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-lg-2 control-label">User name</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" id="inputDefault" placeholder="User name" [(ngModel)]="user['username']" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]="user['email']">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-lg-2 control-label">New password</label>
+          <div class="col-lg-10">
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="user['password']">
+            
+          </div>
+        </div>
+        <!--div class="form-group block col-md-offset-3 col-md-12" >
+          <div  class="col-md-offset-2">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> I want all project notifications pushed to my e-mail
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> I want all activites pushed to my e-mail
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> I want to receive the NFI newsletter
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> I want to see when someone supports my project
+              </label>
+            </div>
+          </div>
+        </div-->      
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-9">
+            <button type="submit" class="btn btn-info" (click)="saveChanges($event)">Save changes</button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

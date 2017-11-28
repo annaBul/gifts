@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<app-slider></app-slider>
+
+<div class="container"> 
+<tabset class="col-md-offset-1 col-md-11" (onSelect)="selectTab($event)">
+    <tab title="Popular projects" [active]="true">
+        <p *ngFor="let project of popularProjects">
+            <app-card [project]="project"></app-card>
+        </p>
+    </tab>
+    <tab title="Recent projects">
+        <p *ngFor="let project of recentProjects">
+            <app-card [project]="project"></app-card>
+        </p>
+    </tab>
+    <!--tab title="Successful project">
+        
+    </tab-->
+</tabset>
+</div>
+
+<!--app-funded-showcase></app-funded-showcase-->

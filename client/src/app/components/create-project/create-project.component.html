@@ -1,0 +1,82 @@
+<app-navbar></app-navbar>
+<div class="info">
+  <div class="col-md-offset-2 col-md-8">
+    <div  class="col-md-6 user-img">
+      <img id='project-img' src="{{newProject['imageUrl']}}" >
+    </div>
+    <div class="col-md-offset-2 col-md-4">
+      <div class="img-upload">
+          <div class="img-label btn btn-info">Add project picture</div>
+          <input type="file" (change)="uploadFile($event)">
+          
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" > 
+    <div  class="col-md-11" >      
+      <div class="form-horizontal">
+        <fieldset>
+          <div class="form-group">
+            <label for="inputDefault" class="col-md-offset-1 col-md-2 control-label">Project title</label>
+            <div class="input-group col-md-8">
+              <input type="text" class="form-control" id="inputDefault" #title="ngModel" required  pattern="[^/]*" placeholder="Project title" [(ngModel)]="newProject['title']">
+            </div>
+            <div class="input-group col-md-offset-3 col-md-8">         
+              <div class=" col-md-5" [hidden]="title.valid || title.untouched" class="alert alert-danger">
+                Must be filled
+              </div> 
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-md-offset-1 col-md-2 control-label">Project description</label>
+            <div class=" input-group col-md-8">
+              <!--textarea class="form-control" rows="10" id="textArea" [(ngModel)]="newProject['description']"></textarea-->
+              <ckeditor
+              [(ngModel)]="newProject['description']"
+              [config]="{uiColor: '#772852', language: 'en'}"
+              [readonly]="false"
+              (change)="onChange($event)"
+              (ready)="onReady($event)"
+              (focus)="onFocus($event)"
+              (blur)="onBlur($event)"
+              debounce="500">
+              </ckeditor>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label for="inputDefault" class="col-md-offset-1 col-md-2 control-label">Last date of project availability</label>
+            <div class="col-md-7"  id="date">
+              <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+            </div>
+            <div class="input-group col-md-offset-3 col-md-8 " *ngIf="errorDate">         
+              <div class=" col-md-5"  class="alert alert-danger">
+                  {{errorDate}}
+              </div> 
+            </div>
+          </div>      
+          <div class="form-group">
+            <label for="budget" class=" col-md-offset-1 col-md-2 control-label">Budget</label>
+            <div class="input-group col-md-8">                
+              <input type="text" class="form-control col-md-5" [(ngModel)]="newProject['budget']" #budget="ngModel" 
+              required pattern="[1-9][0-9]*" >
+              <span class="input-group-addon">BYN</span>
+            </div>     
+            <div class="input-group col-md-offset-3 col-md-8">         
+              <div class=" col-md-5" [hidden]="budget.valid || budget.untouched" class="alert alert-danger">
+                Incorrected value
+              </div> 
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-10 col-md-offset-9">
+              <button type="submit" class="btn btn-info" (click)="createProject($event)">Add project</button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  

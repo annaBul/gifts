@@ -1,0 +1,45 @@
+.info{
+    background-color: rgba(92, 32, 64, 0.5);
+    height: 300px;
+    margin: 50px 0px 50px;
+}
+.img-label{
+    height: 3em; 
+    text-align: center;  
+    width: 100%; 
+}
+
+.img-upload{
+    display: block;
+    position: relative;
+    overflow: hidden;
+    font-size: 1em;          
+    height: 3em;
+    width: 100%;    
+    margin-top: 135px;
+}
+
+.img-upload input[type=file]{
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    height: 3em;
+    width: 100%; 
+}
+#project-img{
+    height: 300px; 
+    margin: 0px 10px 0px 10px;
+    text-align: center;   
+}
+
+.container{
+    margin-top: 20px;
+}
+
+.form-group{
+  margin-top: 25px;
+}
+
+#date{
+    padding-top: 12px;
+}

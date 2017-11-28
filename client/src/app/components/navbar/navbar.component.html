@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink='/'>PSG</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav">
+        <!--li class="active" id="create-project"><a routerLink='/create_project'>Create project <span class="sr-only">(current)</span></a></li-->
+        <!--li><a href="#">Find project</a></li>
+        <li class="dropdown" dropdown>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" dropdown-open  aria-expanded="false">Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Language</a></li>
+            <li><a href="#">Theme</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li-->
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Поиск">
+        </div>
+        <button type="submit" class="btn btn-default">Поиск</button>
+      </form>
+      <form class="navbar-form navbar-right">
+        <div class="form-group">
+          <ul class="nav navbar-nav">
+            <li class="dropdown"  dropdown *ngIf="username"> 
+              <a dropdown-open  id="user-menu" >{{username}}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="/user/{{id}}">Профиль</a></li>
+                <li *ngIf='currentUser["role"] === "Admin"' id="adminMenu"><a routerLink="admin/users">Админка</a></li>
+                <li class="divider"></li>
+                <li><a id="logOut" (click)="logout($event)">Выйти</a></li>
+              </ul>
+            </li>
+            <li><button type="submit" id="btn-signIn" routerLink="/login" class="btn btn-default">Войти</button></li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>

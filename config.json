@@ -1,0 +1,22 @@
+{
+    "app": {
+        "host": "localhost",
+        "port": 8023,
+        "schema": "http",
+        "url": "http://localhost:3000"
+    },
+    "security": {
+        "tokenLife" : 4320,
+        "secret" : "gifts-PSG"
+    },
+    
+        "session": {
+            "secret": "it:secret",
+            "key": "some",
+            "cookie": {
+                "path": "/",
+                "httpOnly": true,
+                "maxAge": null
+            }
+        }
+}
