@@ -3,7 +3,7 @@
   <tabset class="col-md-offset-1 col-md-11">
       <tab title="Люди" [active]="true">
         <p *ngFor="let person of people">
-           <!--app-card [person]="person"></app-card-->
+           <app-card [person]="person"></app-card>
         </p>
         <div class="col-md-offset-1" *ngIf="people.length === 0" >
             <h1>Нет людей</h1>

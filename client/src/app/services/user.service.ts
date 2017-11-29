@@ -25,10 +25,24 @@ export class UserService{
         }
     }   
 
-    getUserProjects(id){
-        let headers = new Headers();
-        return this.http.get('http://localhost:3000/user/' + id+'/projects', {headers: headers})
+    getUserFavorites(){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            let headers = new Headers();
+            headers.append('Authorization', currentUser.token); 
+            return this.http.get('http://localhost:3000/user/favorites', {headers: headers})
             .map(res => res.json());
+        }
+    }  
+
+    getUserPeople(){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            let headers = new Headers();
+            headers.append('Authorization', currentUser.token); 
+            return this.http.get('http://localhost:3000/user/people', {headers: headers})
+            .map(res => res.json());
+        }
     }  
 
     saveSettingChanges(user){

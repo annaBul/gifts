@@ -5,7 +5,8 @@ var schemes = require('./index');
 
 var GiftSchema = require('./gift').GiftSchema;
 var GiftModel =  mongoose.model('Gift', schemes.GiftSchema);
-
+var HolidaySchema = require('./holiday').HolidaySchema;
+var HolidayModel =  mongoose.model('Holiday', schemes.HolidaySchema);
 
 var Person = new Schema({
     name: {

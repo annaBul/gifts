@@ -8,21 +8,21 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 router.get('/gifts', function(req, res, next) { 
-    var URLs = ['http://podaro4ek.by/main-podaro4ek/novye-podaro4ki?start=28&limit=200'];
+    var URLs = ['https://ylet.by/category/hity-prodazh/'];
     var data = [];
 
-  //  getResults(URLs[0], parsePodaro4ek, function(result){
-    //    data = data.concat(result); 
-    data = [{
+    getResults(URLs[0], parsePodaro4ek, function(result){
+        data = data.concat(result); 
+   /* data = [{
         name: "подарочек",
         imageUrl: "http://localhost:3000/1.jpg",
         price: "100 BYN"
-    }]
-        console.log(data);
+    }]*/
+       // console.log(data);
         return res.send({
             success: true,
             gifts: data});           
-  //  });
+    });
 });
 
 var  getResults =function(url, parser, callback){
@@ -73,12 +73,13 @@ function parsePodaro4ek(body){
     flag = false;
     while(flag == false){
         var $ = cheerio.load(body);
-        $('div.ot-custom-products-page').each(function(i, element){
+        $('div.product').each(function(i, element){
           //  $('li.menu-item').each(function(i, element){
-            var name = $(this).children('div.product-name').children('h5').children('a').text();
-            var href = 'http://podaro4ek.by' + $(this).children('div.product-name').children('h5').children('a').attr('href');
-            console.log(cheerio.load($(this).children('div.product-image').children('div').children('div').children('div').children('div.slick-current').children('a').children('img').children('src')));
-            var pic =  $(this).children('div.product-image').children('div').children('div').children('div').children('div.slick-current').children('a').children('img').attr('src');
+            var name = $(this).children('form').children('div.prdbrief_name').children('a').text();
+           // var href = 'http://podaro4ek.by' + $(this).children('div.product-name').children('h5').children('a').attr('href');
+          //  console.log(cheerio.load($(this).children('div.product-image').children('div').children('div').children('div').children('div.slick-current').children('a').children('img').children('src')));
+            var imageUrl = 'https://ylet.by' + $(this).children('form').children('div.prdbrief_thumbnail').children('a').children('img').attr('src');
+        //    console.log(imageUrl);
          //   var price = parseFloat($(this).children('td.h_pr').children('span.price_mr').text().replace(",", "."));
         //    if (isNaN(price))
       //          var price = "not available";
@@ -87,9 +88,9 @@ function parsePodaro4ek(body){
         
             results.push({
                 name: name,
-                pic: pic,
+                imageUrl: imageUrl,
         //        price: price,
-                href: href
+             //   href: href
             });
            // console.log(name);
             flag = true;

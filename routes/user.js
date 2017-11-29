@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose  = require('mongoose');
 var UserModel =  require('../models').UserModel;
-var ProjectModel =  require('../models').ProjectModel;
+var PersonModel =  require('../models').PersonModel;
 var jwt  = require('jsonwebtoken');
 var passport = require('../services/passport');
    
@@ -94,7 +94,6 @@ router.get('/user/favorites', function(req, res, next) {
         if (!user) {  
             return res.send({error: "User don't found!"});
         }      
-
          
         UserModel.findById({'_id': user.id }).populate('favorites').
         exec(function (err, user) {
@@ -115,14 +114,13 @@ router.get('/user/favorites', function(req, res, next) {
 });
 
 router.get('/user/people', function(req, res, next) {
-    passport.authenticate('jwt', function (err, user) {
+    passport.authenticate('jwt', function (err, user) {  
         if(err){
            return res.send({error: "Some error!"});
         }
         if (!user) {  
             return res.send({error: "User don't found!"});
-        }      
-
+        }    
          
         UserModel.findById({'_id': user.id }).populate('people').
         exec(function (err, user) {
@@ -136,10 +134,8 @@ router.get('/user/people', function(req, res, next) {
                 success: true,
                 people: user.people,
             });
-        }); 
-        
-    });
-    
+        })
+    } )(req, res, next);    
 });
 
 

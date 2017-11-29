@@ -28,8 +28,8 @@ export class UserComponent implements OnInit, OnDestroy {
       } 
 
       this.routeSubscription = route.params.subscribe(params=>this.id=params['id']);
-      
-    /*  this.userService.getUser(this.id)
+      /*
+      this.userService.getUser(this.id)
       .subscribe(res => {
         if(res.error){
           this.error = res.error;
@@ -38,18 +38,18 @@ export class UserComponent implements OnInit, OnDestroy {
           this.user = res.user;
         }
        }
-      });
+      });*/
 
-      this.userService.getUserProjects(this.id)
+      this.userService.getUserPeople()
       .subscribe(res => {
         if(res.error){
           this.error = res.error;
        } else {
-        if(res.projects){          
-          this.projects = res.projects;
+        if(res.people){          
+          this.people = res.people;
         }
        }
-      });*/
+      });
   }
 
   ngOnInit(){
