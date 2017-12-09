@@ -7,6 +7,9 @@ import {PeopleService} from '../../services/people.service';
 import {Popup} from 'ng2-opd-popup';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
+const CLOUDYNARY_URL = 'https://api.cloudinary.com/v1_1/dyzdll94h/image/upload';
+const CLOUDYNARY_UPLOAD_PRESET = 'xmqxl2si';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -109,8 +112,45 @@ export class UserComponent implements OnInit, OnDestroy {
       if(res.person){          
         this.people.push(res.person);
       }
+      this.popup.hide();
+      this.newPerson = {
+        name: "",
+        birthDay: null,
+        imageUrl: "http://res.cloudinary.com/dyzdll94h/image/upload/v1504852358/img_qm8t9t.jpg"
+      };
+      this.date = null;
      }
     });
+  }
+
+  public uploadFile(event: any) { 
+    
+    const file = event.target.files[0]; 
+    const xhr = new XMLHttpRequest(); 
+    const fd = new FormData(); 
+    
+    //fd.append('upload_preset', 'xmqxl2si');
+    xhr.open('POST', CLOUDYNARY_URL, true); 
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
+    
+    xhr.onreadystatechange = (e) => { 
+      if (xhr.readyState === 4 && xhr.status === 200) { 
+        console.log(JSON.parse(xhr.responseText)); 
+        const response = JSON.parse(xhr.responseText); 
+        const imgs = document.getElementsByTagName('img'); 
+        for (let i = 0; i < imgs.length; i++) { 
+          const img = imgs[i]; 
+          if (img.id === 'user-image') { 
+            this.newPerson.imageUrl = response.secure_url; 
+            img.src = response.secure_url; 
+            img.alt = response.public_id; 
+          } 
+        } 
+      } 
+    };
+    fd.append('upload_preset', CLOUDYNARY_UPLOAD_PRESET ); 
+    fd.append('file', file); 
+    xhr.send(fd);  
   }
 
 

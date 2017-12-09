@@ -57,10 +57,8 @@ router.post('/add_person',function(req, res, next) {
                                 imageUrl:req.body.imageUrl,
                                 birthDay: req.body.birthDay
                             };
-                            console.log(newPerson);
                             PersonModel.create(newPerson, function(err, item) {
                                 if(!err){
-                                    console.log("3");
                                     user.people.push(item._id);
                                     user.save();
                                     return res.send({
