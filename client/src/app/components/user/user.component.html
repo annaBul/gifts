@@ -1,23 +1,89 @@
 <app-navbar></app-navbar>
 <div class="container"> 
-  <tabset class="col-md-offset-1 col-md-11">
+  <tabset class=" col-md-12">      
       <tab title="Люди" [active]="true">
-        <p *ngFor="let person of people">
-           <app-card [person]="person"></app-card>
-        </p>
-        <div class="col-md-offset-1" *ngIf="people.length === 0" >
-            <h1>Нет людей</h1>
-        </div>
+        <ul class="list-group col-md-3">
+            <li class="list-group-item active">
+              <span class="tag tag-default tag-pill float-xs-right"></span>
+              Действия
+            </li>
+            <li class="list-group-item">
+              <span class="tag tag-default tag-pill float-xs-right" (click)="showAddNewPersonPopup()">
+                Добавить нового человека
+              </span>
+            </li>
+          </ul>
+        <div class="list col-md-9">
+          <div *ngFor="let person of people">
+            <app-card [person]="person"></app-card>
+          </div>
 
+          <div class="col-md-offset-1" *ngIf="people.length === 0" >
+              <h1>Нет людей</h1>
+          </div>
+        </div>
       </tab>
       <tab title="Избранное">
-        <p *ngFor="let gift of favorites">
-           <gift-card [gift]="gift"></gift-card>
-        </p>
-        <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
-            <h1>Нет подарков в избранное</h1>
-        </div>
+        <div class="list col-md-9">
+          <p *ngFor="let gift of favorites">
+            <gift-card [gift]="gift"></gift-card>
+          </p>
+          <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
+              <h1>Нет подарков в избранное</h1>
+          </div>
+      </div>
 
       </tab>
   </tabset>
 </div>
+
+
+
+
+
+
+<popup  #popup1 (confirmClick)="addNewPersonEvent()">
+
+  <div  > 
+    <div>      
+      <div class="form-horizontal">
+        <fieldset>       
+          <div class="form-group block img-block col-md-offset-3 col-md-12">
+            <div  class=" col-md-offset-1 col-md-2 user-img">
+              <img id='user-image' src="{{newPerson.imageUrl}}">
+            </div>
+            <div class="col-md-8">
+              <div class="img_upload">
+                  <div class="img-label">Изменить фото</div>
+                  <input type="file" (change)="uploadFile($event)">
+                  
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-lg-3 control-label">Полное имя</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Полное имя" [(ngModel)]="newPerson.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputDefault" class="col-md-offset-1 col-md-2 control-label">Дата рождения</label>
+            <div class="col-md-7"  id="date">
+              <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+            </div>
+          </div>
+          <!--div class="form-group">
+            <label for="inputDefault" class="col-lg-3 control-label">Отношения</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="inputEmail" placeholder="Отношения" ([ngModel])="newPerson.role">
+            </div>
+            <div class="col-md-offset-3 col-lg-9">
+                (мать, отец, брат, сестра, друг и т.д.)
+              </div>
+          </div-->
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  
+</popup>

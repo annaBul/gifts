@@ -9,9 +9,11 @@ import {TabsModule} from "ng2-tabs";
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { DatePickerModule } from 'ng2-datepicker';
 import { CKEditorModule } from 'ng2-ckeditor';
+import {PopupModule} from 'ng2-opd-popup';
 
 import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
+import {PeopleService} from './services/people.service';
 import {ProjectService} from './services/project.service';
 import {ProjectsService} from './services/projects.service';
 import {AdminService} from './services/admin.service';
@@ -36,11 +38,15 @@ import { CreateProjectGuard }   from './components/create-project/create-project
 import { AdminGuard }   from './components/admin/admin.guard';
 import { PaymentComponent } from './components/payment/payment.component';
 import { GiftCardComponent }   from './components/gift-card/gift-card.component';
+import { AddPersonComponent } from './components/add-person/add-person.component';
+import { PersonPageComponent } from './components/person-page/person-page.component';
+import { AddPersonModalComponent } from './components/add-person-modal/add-person-modal.component';
 
 const appRoutes: Routes =[
   { path: '', component: MainPageComponent},
   { path: 'login', component: LoginComponent},
   { path: 'registration', component: RegistrationComponent},
+  { path: 'person/:name', component: PersonPageComponent, pathMatch:'full'},
   { path: 'create_project', component: CreateProjectComponent, canActivate: [CreateProjectGuard], pathMatch:'full'},
   { path: 'user/:id', component: UserComponent, pathMatch:'full'},
   { path: 'user/:id/settings', component: SettingsComponent, canActivate: [SettingsGuard], pathMatch:'full'},
@@ -69,6 +75,7 @@ const appRoutes: Routes =[
     NotFoundComponent,
     PaymentComponent,
     GiftCardComponent,
+    PersonPageComponent,
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(appRoutes),
@@ -80,10 +87,12 @@ const appRoutes: Routes =[
     TabsModule,
     DatePickerModule,
     CKEditorModule,
+    PopupModule.forRoot()
   ],
   providers: [
     LoginService,
     UserService,
+    PeopleService,
     ProjectService,
     ProjectsService,
     AdminService,
@@ -92,7 +101,7 @@ const appRoutes: Routes =[
     CreateProjectGuard,
     AdminGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { 
   

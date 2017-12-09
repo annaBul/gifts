@@ -1,0 +1,23 @@
+.profile{
+    background-color: rgba(92, 32, 64, 0.5);
+    color: black;
+    height: 300px;
+    margin: 50px 0px 50px;
+}
+
+.userInfo{
+    margin-top: 90px;
+    margin-bottom: 50px;
+}
+
+.userImg{
+    height: 100px;
+}
+
+#username{
+    margin: 5px 5px 20px 5px;
+}
+
+.empty{
+    height: 50px;
+}

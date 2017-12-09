@@ -1,0 +1,26 @@
+<!--app-navbar></app-navbar>
+<div class="profile">
+  <div class="col-sm-offset-3 col-sm-6 userInfo">
+    <div  class="col-sm-3">
+      <img class="userImg" src="{{user['imageUrl']}}" >
+    </div>
+    <div class="col-md-offset-2 col-md-5">
+      <h3 id="username">{{user['username']}}</h3>
+      <button routerLink="/user/{{id}}/settings" type="submit" class="btn btn-info btn-sm" *ngIf="user['username']===currentUser['username']">Edit data</button>
+    </div>
+  </div>
+</div>
+
+<div class="container"> 
+  <tabset class="col-md-offset-1 col-md-11">
+      <tab title="Projects" [active]="true">
+        <p *ngFor="let project of projects">
+           <app-card [project]="project"></app-card>
+        </p>
+        <div class="col-md-offset-1" *ngIf="projects.length === 0" >
+            <h1>No projects</h1>
+        </div>
+
+      </tab>
+  </tabset>
+</div-->
