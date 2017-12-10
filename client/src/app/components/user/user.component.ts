@@ -61,6 +61,21 @@ export class UserComponent implements OnInit, OnDestroy {
         }
        }
       });
+
+      this.loadFavorites();
+  }
+
+  loadFavorites(){
+    this.userService.getUserFavorites()
+    .subscribe(res => {
+      if(res.error){
+        this.error = res.error;
+     } else {
+      if(res.favorites){          
+        this.favorites = res.favorites;
+      }
+     }
+    });
   }
 
   ngOnInit(){
@@ -69,6 +84,7 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
       this.routeSubscription.unsubscribe();
   }
+
 
 
 

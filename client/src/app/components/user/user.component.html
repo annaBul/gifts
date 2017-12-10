@@ -3,16 +3,16 @@
   <tabset class=" col-md-12">      
       <tab title="Люди" [active]="true">
         <ul class="list-group col-md-3">
-            <li class="list-group-item active">
-              <span class="tag tag-default tag-pill float-xs-right"></span>
-              Действия
-            </li>
-            <li class="list-group-item">
-              <span class="tag tag-default tag-pill float-xs-right" (click)="showAddNewPersonPopup()">
-                Добавить нового человека
-              </span>
-            </li>
-          </ul>
+          <li class="list-group-item active">
+            <span class="tag tag-default tag-pill float-xs-right"></span>
+            Действия
+          </li>
+          <li class="list-group-item">
+            <span class="tag tag-default tag-pill float-xs-right" (click)="showAddNewPersonPopup()">
+              Добавить нового человека
+            </span>
+          </li>
+        </ul>
         <div class="list col-md-9">
           <div *ngFor="let person of people">
             <app-card [person]="person"></app-card>
@@ -23,7 +23,18 @@
           </div>
         </div>
       </tab>
-      <tab title="Избранное">
+      <tab title="Избранное" >
+        <ul class="list-group col-md-3">
+          <li class="list-group-item active">
+            <span class="tag tag-default tag-pill float-xs-right"></span>
+            Действия
+          </li>
+          <li class="list-group-item">
+            <span class="tag tag-default tag-pill float-xs-right">
+             
+            </span>
+          </li>
+        </ul>
         <div class="list col-md-9">
           <p *ngFor="let gift of favorites">
             <gift-card [gift]="gift"></gift-card>
@@ -43,7 +54,6 @@
 
 
 <popup  #popup1 (confirmClick)="addNewPersonEvent()">
-
   <div  > 
     <div>      
       <div class="form-horizontal">

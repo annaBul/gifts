@@ -23,7 +23,6 @@ export class MainPageComponent implements OnInit {
     this.giftsService.getGifts()
     .subscribe(res => {
       if(!res.error){
-        console.log(res.gifts);
         this.gifts = res.gifts;
       }
     });

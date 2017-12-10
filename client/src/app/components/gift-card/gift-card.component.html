@@ -1,10 +1,12 @@
 <div class="col-sm-3 col-md-3">
-  <div class="thumbnail col-md-11" routerLink='/gift/{{gift.name}}' >
+  <div class="thumbnail col-md-11" routerLink='/gift/{{gift.name}}' [queryParams]="{'gift': gift.href}" >
     <img id="gift-img" src="{{gift.imageUrl}}" alt="">
     <br>
     <div class="col-md-offset-1">
-      <h5 id="gift-name">{{gift.name}}</h5>   
-      <h6 > </h6>
+      <h5 id="gift-name">{{gift.name}}</h5>  
+      <div class="col-sm-offset-6">
+        <h6 id="gift-name">{{gift.price}}</h6>  
+      </div>
     </div>
   </div>
 </div>

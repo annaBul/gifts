@@ -76,11 +76,12 @@ function parsePodaro4ek(body){
         $('div.product').each(function(i, element){
           //  $('li.menu-item').each(function(i, element){
             var name = $(this).children('form').children('div.prdbrief_name').children('a').text();
-           // var href = 'http://podaro4ek.by' + $(this).children('div.product-name').children('h5').children('a').attr('href');
+            var href = 'https://ylet.by' + $(this).children('form').children('div.prdbrief_thumbnail').children('a').attr('href');
           //  console.log(cheerio.load($(this).children('div.product-image').children('div').children('div').children('div').children('div.slick-current').children('a').children('img').children('src')));
             var imageUrl = 'https://ylet.by' + $(this).children('form').children('div.prdbrief_thumbnail').children('a').children('img').attr('src');
         //    console.log(imageUrl);
-         //   var price = parseFloat($(this).children('td.h_pr').children('span.price_mr').text().replace(",", "."));
+            var price = $(this).children('form').children('span.prdbrief_price').children('span').text()  ;
+            //parseFloat($(this).children('td.h_pr').children('span.price_mr').text().replace(",", "."));
         //    if (isNaN(price))
       //          var price = "not available";
        //     else
@@ -89,8 +90,8 @@ function parsePodaro4ek(body){
             results.push({
                 name: name,
                 imageUrl: imageUrl,
-        //        price: price,
-             //   href: href
+                price: price,
+                href: href
             });
            // console.log(name);
             flag = true;

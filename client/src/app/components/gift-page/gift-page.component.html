@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<div class="container"> 
+  <ul class="list-group col-md-3">
+    <li class="list-group-item active">
+      <span class="tag tag-default tag-pill float-xs-right"></span>
+      Действия
+    </li>
+    <li class="list-group-item">
+      <span class="tag tag-default tag-pill float-xs-right" (click)="addGiftToFavorites()">
+        Добавить в избранное
+      </span>
+    </li>
+    <li class="list-group-item">
+      <span class="tag tag-default tag-pill float-xs-right" (click)="DeleteHolidayPopup()">
+        Добавить другу 
+      </span>
+    </li>
+  </ul> 
+  <div class="col-md-9">
+    <div class="info">
+      <div  class="col-md-5 user-img">
+        <img id='gift-img' src="{{gift['imageUrl']}}" >
+      </div>
+      <div class="col-md-offset col-md-6">
+        <div>
+            <h3 class='gift-data'>{{gift.name}}</h3>
+
+            <h3 class='gift-data'>{{gift.price}}</h3>
+            <a class="gift-data href" href={{gift.href}}>Перейти на сайт подарка</a>
+           <button *ngIf="currentUser" type="submit" routerLink='/payment' [queryParams]="{'project_title': gift['href']}" class="btn btn-info" >Support project</button>
+
+        </div>
+      </div>      
+    </div>
+    <div>
+        {{gift.description}}
+    </div>
+  </div>
+  
+</div>

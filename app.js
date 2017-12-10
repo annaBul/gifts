@@ -17,6 +17,7 @@ var registration = require('./routes/registration');
 var login = require('./routes/login');
 var admin = require('./routes/admin');
 var people = require('./routes/people');
+var gift = require('./routes/gift');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/', login);
 app.use('/', user);
 app.use('/', admin);
 app.use('/', people);
+app.use('/', gift);
 require("./services/mongoose");
 
 // catch 404 and forward to error handler

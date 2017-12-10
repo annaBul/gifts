@@ -64,8 +64,7 @@ router.post('/create_project',function(req, res, next) {
                                 completionDate: req.body.completionDate,
                                 author: user.id
                             };
-                            
-                            
+                                                        
                             ProjectModel.create(newProject, function(err, item) {
                                 if(!err){
 

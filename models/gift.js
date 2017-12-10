@@ -10,7 +10,7 @@ var Gift = new Schema({
         unique: true,
         required: true,
     },
-    url: {
+    href: {
         type: String,
     },
     imageUrl: {
@@ -21,6 +21,10 @@ var Gift = new Schema({
         type: String,
     },
     price: {
+        type: String,
+        required: true,
+    },
+   /* price: {
         type: Number,
         required: true,
     },
@@ -28,7 +32,7 @@ var Gift = new Schema({
         type: String,
         required: true,
         default: "BYN"
-    },
+    },*/
 });
 
 var GiftModel = mongoose.model('Gift', Gift);

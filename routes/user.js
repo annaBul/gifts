@@ -94,7 +94,6 @@ router.get('/user/favorites', function(req, res, next) {
         if (!user) {  
             return res.send({error: "User don't found!"});
         }      
-         
         UserModel.findById({'_id': user.id }).populate('favorites').
         exec(function (err, user) {
             if (err) {
@@ -102,15 +101,12 @@ router.get('/user/favorites', function(req, res, next) {
                 console.log('Internal error(%d): %s',res.statusCode,err.message);
                 return res.send({ error: 'Server error' });
             }
-            
             return res.send({
                 success: true,
                 favorites: user.favorites,
             });
-        }); 
-        
-    });
-    
+        })
+    } )(req, res, next);    
 });
 
 router.get('/user/people', function(req, res, next) {
