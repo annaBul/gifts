@@ -32,6 +32,16 @@ export class PeopleService{
         }
     }  
 
+    getPerson(person){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            let headers = new Headers();
+            headers.append('Authorization', currentUser.token); 
+            return this.http.get(baseUrl+'/person/'+person._id, {headers: headers})
+            .map(res => res.json());
+        }
+    }  
+
     addNewPerson(newPerson){
         if(localStorage.getItem('currentUser')){
             var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -42,4 +52,15 @@ export class PeopleService{
                 .map(res => res.json());
         }
     }
+
+    addHolidayToPerson(newHoliday, personName){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            headers.append('Authorization', currentUser.token); 
+            return this.http.post(baseUrl+'/create_holiday', JSON.stringify({holiday: newHoliday,personName: personName}), {headers: headers})
+                .map(res => res.json());
+        }
+      }
 }

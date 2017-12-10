@@ -135,34 +135,5 @@ router.get('/user/people', function(req, res, next) {
 });
 
 
-router.get('/person/:id', function(req, res, next) {
-    passport.authenticate('jwt', function (err, user) {
-        if(err){
-           return res.send({error: "Some error!"});
-        }
-        if (!user) {  
-            return res.send({error: "User don't found!"});
-        }      
-
-         
-        PeopleModel.findById({'_id': user.id }).populate(['gifts', 'holidays']).
-        exec(function (err, user) {
-            if (err) {
-                res.statusCode = 500;
-                console.log('Internal error(%d): %s',res.statusCode,err.message);
-                return res.send({ error: 'Server error' });
-            }
-            
-            return res.send({
-                success: true,
-                people: user.people,
-            });
-        }); 
-        
-    });
-    
-});
-
-
 
 module.exports = router;

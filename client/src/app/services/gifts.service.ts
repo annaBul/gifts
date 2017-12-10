@@ -43,5 +43,16 @@ export class GiftsService {
             .map(res => res.json());
     }
   }
+
+  DeleteGiftFromFavorites(gift){
+    if(localStorage.getItem('currentUser')){
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', currentUser.token); 
+        return this.http.delete(baseUrl+'/delete_gift_from_favorite/'+ gift._id, {headers: headers})
+            .map(res => res.json());
+    }
+  }
   
 }

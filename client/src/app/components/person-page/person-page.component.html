@@ -6,6 +6,16 @@
           Действия
         </li>
         <li class="list-group-item">
+          <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+            Редактировать данные
+          </span>
+        </li>
+        <li class="list-group-item">
+          <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+            Удалить друга
+          </span>
+        </li>
+        <li class="list-group-item">
           <span class="tag tag-default tag-pill float-xs-right" (click)="showAddNewHolidayPopup()">
             Добавить новое событие
           </span>
@@ -16,9 +26,36 @@
           </span>
         </li>
       </ul>
-  <tabset class=" col-md-9">      
-      <tab title="Люди" [active]="true">
-        
+
+  <div class="col-md-9">
+      <div class="profile">
+        <div class="userInfo">
+          <div  class="col-sm-offset-1 col-sm-3">
+            <img id='userImg' src="{{person.imageUrl}}" >
+          </div>
+          <div class="col-md-offset-1 col-md-5">
+            <div>
+                <h3 class='data'>{{person.name}}</h3>
+
+                <h3 class='data'>{{person.birthDay | date}}</h3>  
+            </div>
+          </div> 
+        </div>     
+      </div>    
+  <tabset>      
+      <tab title="События" [active]="true">
+          <div class="list-group holidays">
+              <ul class="list-group">
+                <div>
+                <li class="list-group-item" *ngFor="let holiday of person.holidays">
+                  <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+                    {{holiday.name}}
+                  </span>
+                </li>
+
+                </div>
+              </ul>
+          </div>
         <!--div class="list col-md-9">
           <div *ngFor="let person of people">
             <app-card [person]="person"></app-card>
@@ -27,18 +64,46 @@
           <div class="col-md-offset-1" *ngIf="people.length === 0" >
               <h1>Нет людей</h1>
           </div>
-        </div>
+        </div-->
       </tab>
-      <tab title="Избранное">
-        <div class="list col-md-9">
-          <p *ngFor="let gift of favorites">
-            <gift-card [gift]="gift"></gift-card>
+      <tab title="Подарки">
+        <div class="">
+          <p *ngFor="let gift of person.gifts">
+            <gift-card [gift]="gift" [type]="'person-gift'"></gift-card>
           </p>
-          <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
-              <h1>Нет подарков в избранное</h1>
+          <div class="col-md-offset-1" *ngIf="person.gifts.length === 0" >
+              <h1>Нет подарков подобранных подарков</h1>
           </div>
-      </div-->
+      </div>
 
       </tab>
   </tabset>
 </div>
+</div>
+
+
+
+
+<popup  #popup3 (confirmClick)="addNewHolidayEvent()">
+    <div> 
+      <div>      
+        <div class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <label for="holiday-name" class="col-lg-4 control-label">Название события</label>
+              <div class="col-lg-8">
+                <input type="text" class="form-control" id="inputDefault" placeholder="Название события" [(ngModel)]="newHoliday.name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputDefault" class="col-md-offset-1 col-md-3 control-label">Дата события</label>
+              <div class="col-md-7"  id="date">
+                <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    
+  </popup>

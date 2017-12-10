@@ -37,7 +37,7 @@
         </ul>
         <div class="list col-md-9">
           <p *ngFor="let gift of favorites">
-            <gift-card [gift]="gift"></gift-card>
+            <gift-card [gift]="gift" [type]="'favorites'"></gift-card>
           </p>
           <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
               <h1>Нет подарков в избранное</h1>

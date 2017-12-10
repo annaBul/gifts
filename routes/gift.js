@@ -8,6 +8,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var GiftModel =  require('../models').GiftModel;
 var PersonModel =  require('../models').PersonModel;
+var UserModel =  require('../models').UserModel;
 
 router.post('/gift', function(req, res, next) { 
     if(!req.body.href){
@@ -185,5 +186,24 @@ router.post('/add_gift_to_favorites',function(req, res, next) {
    } )(req, res, next)  
  });
 
+ router.delete('/delete_gift_from_favorite/:id', function(req, res, next) {
+    passport.authenticate('jwt', function (err, user) {  
+        if(err){
+           return res.send({error: "Some error!"});
+        }
+        if (!user) {  
+            return res.send({error: "User don't found!"});
+        }             
+        
+        user.favorites.splice(user.favorites.indexOf(req.params.id), 1);
+        user.save();   
+        
+        return res.send({
+            success: true,
+            favorites: user.favorites,
+        });
+        
+    } )(req, res, next);    
+});
 
 module.exports = router;

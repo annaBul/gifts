@@ -42,12 +42,13 @@ import { AddPersonComponent } from './components/add-person/add-person.component
 import { PersonPageComponent } from './components/person-page/person-page.component';
 import { AddPersonModalComponent } from './components/add-person-modal/add-person-modal.component';
 import { GiftPageComponent } from './components/gift-page/gift-page.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 const appRoutes: Routes =[
   { path: '', component: MainPageComponent},
   { path: 'login', component: LoginComponent},
   { path: 'registration', component: RegistrationComponent},
-  { path: 'person/:name', component: PersonPageComponent, pathMatch:'full'},
+  { path: 'person/:id', component: PersonPageComponent, pathMatch:'full'},
   { path: 'gift/:name', component: GiftPageComponent, pathMatch:'full'},
   { path: 'create_project', component: CreateProjectComponent, canActivate: [CreateProjectGuard], pathMatch:'full'},
   { path: 'user/:id', component: UserComponent, pathMatch:'full'},
@@ -79,6 +80,7 @@ const appRoutes: Routes =[
     GiftCardComponent,
     PersonPageComponent,
     GiftPageComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(appRoutes),
