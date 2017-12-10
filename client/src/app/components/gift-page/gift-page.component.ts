@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import { GiftsService } from '../../services/gifts.service';
+import { UserService } from '../../services/user.service';
+import {Popup} from 'ng2-opd-popup';
 
 @Component({
   selector: 'app-gift-page',
@@ -9,6 +11,8 @@ import { GiftsService } from '../../services/gifts.service';
   styleUrls: ['./gift-page.component.css']
 })
 export class GiftPageComponent implements OnInit {
+
+ // @ViewChild('popup1') popup1: Popup;
 
   private gift = {
     name: '',
@@ -18,7 +22,9 @@ export class GiftPageComponent implements OnInit {
   };
   private querySubscription: Subscription;
   constructor(private route: ActivatedRoute,
-    private giftsService: GiftsService){
+    private giftsService: GiftsService,
+    private userService: UserService,
+    private popup:Popup){
        
       this.querySubscription = route.queryParams.subscribe(
           (queryParam: any) => {
@@ -44,9 +50,53 @@ export class GiftPageComponent implements OnInit {
         
       }
     });
-}
-
+  }
   ngOnInit() {
+  }
+
+
+  private people;
+  private selectedPersonName;
+
+  showAddGiftToPersonPopup(){
+
+    this.userService.getUserPeople()
+    .subscribe(res => {
+      if(res.people){          
+        this.people = res.people;
+        if(this.people.length != 0){
+          this.selectedPersonName = this.people[0].name;
+        }
+      }
+    });
+    this.popup.options = {
+      header: "Добавление подарка другу",
+      color: "rgb(92, 32, 64)",  
+      widthProsentage: 40, 
+      animationDuration: 0.5, 
+      showButtons: true, 
+      confirmBtnContent: "Добавить", 
+      cancleBtnContent: "Отмена", 
+      confirmBtnClass: "btn btn-info", 
+      cancleBtnClass: "btn btn-info", 
+      animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown' 
+  };
+    this.popup.show(this.popup.options);
+  }
+
+  addGiftToPersonEvent(){
+   
+    this.giftsService.addGiftToPerson(this.gift, this.selectedPersonName)
+    .subscribe(res => {
+      if(res.person){          
+        this.people.push(res.person);
+      }
+      this.popup.hide();
+    });
+  }
+
+  changeSelectedPerson($event){
+    this.selectedPersonName = $event.target.value;
   }
 
 }

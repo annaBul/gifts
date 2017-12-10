@@ -11,7 +11,7 @@
       </span>
     </li>
     <li class="list-group-item">
-      <span class="tag tag-default tag-pill float-xs-right" (click)="DeleteHolidayPopup()">
+      <span class="tag tag-default tag-pill float-xs-right" (click)="showAddGiftToPersonPopup()">
         Добавить другу 
       </span>
     </li>
@@ -27,7 +27,6 @@
 
             <h3 class='gift-data'>{{gift.price}}</h3>
             <a class="gift-data href" href={{gift.href}}>Перейти на сайт подарка</a>
-           <button *ngIf="currentUser" type="submit" routerLink='/payment' [queryParams]="{'project_title': gift['href']}" class="btn btn-info" >Support project</button>
 
         </div>
       </div>      
@@ -38,3 +37,24 @@
   </div>
   
 </div>
+
+
+
+
+<popup  #popup1  (confirmClick)="addGiftToPersonEvent()">
+  <div  > 
+    <div>      
+      <div class="form-horizontal">
+        <fieldset> 
+            <div class="form-group">
+                <label for="exampleSelect1">Выберете друга</label>
+                <select class="form-control" id="exampleSelect1" (change)="changeSelectedPerson($event)">
+                  <option *ngFor="let person of people"  >{{person.name}}</option>                 
+                </select>
+              </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  
+</popup>

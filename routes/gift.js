@@ -7,6 +7,7 @@ var passport = require('../services/passport');
 var request = require('request');
 var cheerio = require('cheerio');
 var GiftModel =  require('../models').GiftModel;
+var PersonModel =  require('../models').PersonModel;
 
 router.post('/gift', function(req, res, next) { 
     if(!req.body.href){
@@ -121,6 +122,68 @@ router.post('/add_gift_to_favorites',function(req, res, next) {
  });
 
 
+ router.post('/add_gift_to_person',function(req, res, next) {    
+    passport.authenticate('jwt', function (err, user) {         
+       if (err) {
+           res.statusCode = 500;
+           console.log('Internal error(%d): %s',res.statusCode,err.message);
+           return res.send({ error: 'Server error' });
+       } else {
+           if(user)
+           {                       
+                GiftModel.find({'name': req.body.gift.name} , function (err, gifts) {
+                    if (err) {
+                        res.statusCode = 500;
+                        log.error('Internal error(%d): %s',res.statusCode,err.message);
+                        return res.send({ error: 'Server error' });
+                    } else {
+                        PersonModel.find({'name': req.body.personName} , function (err, people) {
+                            if (err) {
+                                res.statusCode = 500;
+                                log.error('Internal error(%d): %s',res.statusCode,err.message);
+                                return res.send({ error: 'Server error' });
+                            } else {
+                                if(people.length == 1){ 
+                                    person = people[0];                                   
+                                    if(gifts.length === 0)
+                                    {             
+                                        var newGift = {
+                                            name: req.body.gift.name,
+                                            imageUrl: req.body.gift.imageUrl,
+                                            price: req.body.gift.price,
+                                            href: req.body.gift.href,
+                                            description: req.body.gift.description
+                                        };
+                                        GiftModel.create(newGift, function(err, item) {
+                                            if(!err){
+                                                person.gifts.push(item._id);
+                                                person.save();
+                                                return res.send({
+                                                    success: true,
+                                                    gift: newGift});
+                                            }
+                                            
+                                        });
+                                    } else {
+                                        person.gifts.push(gifts[0]._id);
+                                        person.save();
+                                        return res.send({
+                                            success: true,
+                                            gift: gifts[0]});
+                                    }   
+                                }
+                            }
+                        });
+
+                    }
+                });     
+
+           } else {
+               return res.send({error: "User don't found!"});
+           }          
+       }
+   } )(req, res, next)  
+ });
 
 
 module.exports = router;

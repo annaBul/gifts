@@ -31,6 +31,17 @@ export class GiftsService {
         return this.http.post(baseUrl+'/add_gift_to_favorites', JSON.stringify(gift), {headers: headers})
             .map(res => res.json());
     }
-}
+  }
+
+  addGiftToPerson(gift, personName){
+    if(localStorage.getItem('currentUser')){
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', currentUser.token); 
+        return this.http.post(baseUrl+'/add_gift_to_person', JSON.stringify({gift: gift,personName: personName}), {headers: headers})
+            .map(res => res.json());
+    }
+  }
   
 }
