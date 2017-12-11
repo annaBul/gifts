@@ -44,6 +44,17 @@ export class GiftsService {
     }
   }
 
+  addGiftToHoliday(gift, holidayName){
+    if(localStorage.getItem('currentUser')){
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', currentUser.token); 
+        return this.http.post(baseUrl+'/add_gift_to_holiday', JSON.stringify({gift: gift, holidayName: holidayName}), {headers: headers})
+            .map(res => res.json());
+    }
+  }
+
   DeleteGiftFromFavorites(gift){
     if(localStorage.getItem('currentUser')){
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));

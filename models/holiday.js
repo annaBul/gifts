@@ -10,6 +10,12 @@ var Holiday = new Schema({
         type: String,
         required: true,
     },
+    person:{
+        type: Schema.Types.ObjectId, 
+    },
+    user:{
+        type: Schema.Types.ObjectId, 
+    },
     description: {
         type: String,
     },

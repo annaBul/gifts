@@ -1,6 +1,7 @@
 import {Input, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { GiftsService } from '../../services/gifts.service';
 import { UserService } from '../../services/user.service';
+import { PeopleService } from '../../services/people.service';
 import {Popup} from 'ng2-opd-popup';
 
 @Component({
@@ -11,13 +12,16 @@ import {Popup} from 'ng2-opd-popup';
 export class GiftCardComponent implements OnInit {
   @Input() gift;
   @Input() type;
+  @Input() person;
 
   @ViewChild('popup1') popup1: Popup;
+  @ViewChild('popup2') popup2: Popup;
 
   private active = false;
 
   constructor(private giftsService: GiftsService,
     private userService: UserService,
+    private peopleService: PeopleService,
     private popup:Popup) { 
 
   }
@@ -86,5 +90,51 @@ export class GiftCardComponent implements OnInit {
   changeSelectedPerson($event){
     this.selectedPersonName = $event.target.value;
   }
+
+
+
+
+
+
+  private holidays;
+  private selectedHolidayName;
+
+  showAddGiftToHolidayPopup(){    
+        this.peopleService.getPerson(this.person)
+        .subscribe(res => {
+          if(res.person){          
+            this.person = res.person;
+            if(this.person.holidays.length != 0){
+              this.selectedHolidayName = this.person.holidays[0].name;
+            }
+          }
+        });
+        this.popup2.options = {
+          header: "Добавление подарка к событию",
+          color: "rgb(92, 32, 64)",  
+          widthProsentage: 40, 
+          animationDuration: 0.5, 
+          showButtons: true, 
+          confirmBtnContent: "Добавить", 
+          cancleBtnContent: "Отмена", 
+          confirmBtnClass: "btn btn-info", 
+          cancleBtnClass: "btn btn-info", 
+          animation: "fadeInDown" 
+      };
+        this.popup2.show(this.popup2.options);
+      }
+    
+      addGiftToHolidayEvent(){       
+        this.giftsService.addGiftToHoliday(this.gift, this.selectedHolidayName)
+        .subscribe(res => {
+          this.popup2.hide();
+        });
+      }
+    
+      changeSelectedHoliday($event){
+        this.selectedHolidayName = $event.target.value;
+      }
+
+
 
 }

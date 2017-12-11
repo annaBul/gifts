@@ -64,3 +64,23 @@
 .holidays{
     margin-top: 10px;
 }
+
+.dropdown{
+    margin-right: 20px;
+}
+
+.holiday-menu{
+    color: white;
+}
+
+.dropdown-menu{
+    z-index: 5;
+}
+
+.list-group-item{
+    z-index: 1;
+}
+
+.holiday-gifts{
+    margin: 10px 0px 10px 0px;
+}

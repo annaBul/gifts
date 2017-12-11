@@ -46,13 +46,27 @@
       <tab title="События" [active]="true">
           <div class="list-group holidays">
               <ul class="list-group">
-                <div>
-                <li class="list-group-item" *ngFor="let holiday of person.holidays">
-                  <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+                <div  *ngFor="let holiday of person.holidays">
+                <li class="list-group-item active">
+                  <span class="tag tag-default tag-pill float-xs-right" (click)="showOrHideGiftsOfHoliday(holiday)">
                     {{holiday.name}}
                   </span>
+                  <span class="dropdown float-xs-right  navbar-right"  dropdown > 
+                    <a dropdown-open  class="holiday-menu" >Действие<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li (click)="y"><a>Редактировать</a></li>
+                      <li class="divider"></li>
+                      <li (click)="DeleteHoliday(holiday)"><a>Удалить</a></li>                      
+                    </ul>
+                  </span>
+                  
                 </li>
-
+                <div class="holiday-gifts" *ngIf="holiday.gifts.length !=0" >
+                  <p *ngFor="let gift of holiday.gifts">
+                    <gift-card [gift]="gift" [type]="'holiday-gift'"  [person]="person"></gift-card>
+                  </p>
+                </div>
+                
                 </div>
               </ul>
           </div>
@@ -69,7 +83,7 @@
       <tab title="Подарки">
         <div class="">
           <p *ngFor="let gift of person.gifts">
-            <gift-card [gift]="gift" [type]="'person-gift'"></gift-card>
+            <gift-card [gift]="gift" [type]="'person-gift'"  [person]="person"></gift-card>
           </p>
           <div class="col-md-offset-1" *ngIf="person.gifts.length === 0" >
               <h1>Нет подарков подобранных подарков</h1>

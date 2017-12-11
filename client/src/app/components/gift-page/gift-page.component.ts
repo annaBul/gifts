@@ -3,6 +3,7 @@ import { ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import { GiftsService } from '../../services/gifts.service';
 import { UserService } from '../../services/user.service';
+import { PeopleService } from '../../services/people.service';
 import {Popup} from 'ng2-opd-popup';
 
 @Component({
@@ -12,7 +13,7 @@ import {Popup} from 'ng2-opd-popup';
 })
 export class GiftPageComponent implements OnInit {
 
- // @ViewChild('popup1') popup1: Popup;
+  @ViewChild('popup1') popup1: Popup;
 
   private gift = {
     name: '',
@@ -24,6 +25,7 @@ export class GiftPageComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private giftsService: GiftsService,
     private userService: UserService,
+    private peopleService: PeopleService,
     private popup:Popup){
        
       this.querySubscription = route.queryParams.subscribe(
@@ -45,6 +47,15 @@ export class GiftPageComponent implements OnInit {
 
   addGiftToFavorites(){
     this.giftsService.addGiftToFavorites(this.gift)
+    .subscribe(res => {
+      if(!res.error){
+        
+      }
+    });
+  }
+
+  addGiftToHoliday(holidayName){
+    this.giftsService.addGiftToHoliday(this.gift, holidayName)
     .subscribe(res => {
       if(!res.error){
         
@@ -98,5 +109,8 @@ export class GiftPageComponent implements OnInit {
   changeSelectedPerson($event){
     this.selectedPersonName = $event.target.value;
   }
+
+
+
 
 }

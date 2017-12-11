@@ -135,6 +135,60 @@ router.post('/add_person',function(req, res, next) {
  });
 
 
+ router.post('/delete_holiday/:id', function(req, res, next) {
+    passport.authenticate('jwt', function (err, user) {  
+        if(err){
+           return res.send({error: "Some error!"});
+        }
+        if (!user) {  
+            return res.send({error: "User don't found!"});
+        }             
+        console.log(req.body.personId);
+        PersonModel.findOne({ '_id':req.body.personId} , function (err, person) {
+            if (err) {
+                res.statusCode = 500;
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            } else {
+                console.log(person);
+                if(person){          
+                    
+                    person.holidays.splice(person.holidays.indexOf(req.params.id), 1);
+                    person.save();
+                    return res.send({
+                        success: true,
+                        person: person});
+                }
+            }
+        });
 
+    } )(req, res, next);    
+});
+
+router.get('/get_holiday/:id', function(req, res, next) {
+    passport.authenticate('jwt', function (err, user) {
+        if(err){
+           return res.send({error: "Some error!"});
+        }
+        if (!user) {  
+            return res.send({error: "User don't found!"});
+        }      
+
+        HolidayModel.findById({'_id': req.params.id }).populate(['gifts']).
+        exec(function (err, holiday) {
+            if (err) {
+                res.statusCode = 500;
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            }
+            
+            return res.send({
+                success: true,
+                holiday: holiday,
+            });
+        });         
+    
+    })(req, res, next)  
+});
 
 module.exports = router;

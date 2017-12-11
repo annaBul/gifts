@@ -5,6 +5,8 @@ import { ActivatedRoute} from '@angular/router';
 import {PeopleService} from '../../services/people.service';
 import {Popup} from 'ng2-opd-popup';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+import {DropdownModule} from "ng2-dropdown";
+import {TabsModule} from "ng2-tabs";
 
 @Component({
   selector: 'app-person-page',
@@ -34,6 +36,9 @@ export class PersonPageComponent implements OnInit {
       this.peopleService.getPerson(this.person)
       .subscribe(res => {
         this.person = res.person;
+        this.person.holidays.forEach(function(holiday){
+          holiday.gifts = [];
+        })
       });
   }
   
@@ -42,6 +47,29 @@ export class PersonPageComponent implements OnInit {
   }
 
 
+
+  DeleteHoliday(holiday){
+    this.peopleService.DeleteHolidayFromPerson(holiday, this.person)
+    .subscribe(res => {
+      if(res.person){        
+        this.person.holidays.splice(this.person.holidays.map(day => day._id).indexOf(holiday._id),1);
+      }  
+    });
+  }
+
+  showOrHideGiftsOfHoliday(holiday){
+    if(holiday.gifts.length == 0){
+      this.peopleService.getGiftsOfHolidays(holiday)
+      .subscribe(res => {
+        if(res.holiday){      
+          this.person.holidays[this.person.holidays.map(day => day._id).indexOf(holiday._id)] = res.holiday;
+          console.log(this.person.holidays);
+        }  
+      });
+    } else {
+      this.person.holidays[this.person.holidays.map(day => day._id).indexOf(holiday._id)].gifts = [];
+    }
+  }
 
 
 

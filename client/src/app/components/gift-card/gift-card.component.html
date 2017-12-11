@@ -18,12 +18,12 @@
       <button class="btn btn-info btn-sm btn-sm-1" (click)="showAddGiftToPersonPopup()">Добавить другу</button>
     </div>
     <div *ngIf="(active)&&(type == 'person-gift')" class="col-sm-offset-1" style="margin-bottom: 25px">
-      <button class="btn btn-info btn-sm btn-sm-2">Удалить</button>      
+      <button class="btn btn-info btn-sm btn-sm-2" >Удалить</button>      
       <br>
       <br>
-      <button class="btn btn-info btn-sm btn-sm-1">К событию</button>
+      <button class="btn btn-info btn-sm btn-sm-1" (click)="showAddGiftToHolidayPopup()">К событию</button>
     </div>
-    <div *ngIf="(active)&&(type == 'holiday-gift')" class="col-sm-offset-1" style="margin-bottom: 65px">
+    <div *ngIf="(active)&&(type == 'holiday-gift')" class="col-sm-offset-1" style="margin-bottom: 75px">
         <button class="btn btn-info btn-sm btn-sm-2">Удалить</button> 
       </div>
   </div>
@@ -52,3 +52,22 @@
     </div>
   </div>
 </popup>
+
+
+<popup  #popup2  (confirmClick)="addGiftToHolidayEvent()">
+    <div  > 
+      <div>      
+        <div class="form-horizontal">
+          <fieldset> 
+            <div class="form-group">
+              <label for="exampleSelect1">Выберете событие</label>
+              <select class="form-control" id="exampleSelect1" (change)="changeSelectedHoliday($event)">
+                <option *ngFor="let holiday of person.holidays"  >{{holiday.name}}</option>                 
+              </select>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </popup>
+

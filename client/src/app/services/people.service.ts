@@ -62,5 +62,26 @@ export class PeopleService{
             return this.http.post(baseUrl+'/create_holiday', JSON.stringify({holiday: newHoliday,personName: personName}), {headers: headers})
                 .map(res => res.json());
         }
-      }
+    }
+    
+    DeleteHolidayFromPerson(holiday, person){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            headers.append('Authorization', currentUser.token); 
+            return this.http.post(baseUrl+'/delete_holiday/'+ holiday._id, JSON.stringify({personId: person._id}), {headers: headers})
+                .map(res => res.json());
+        }
+    }
+
+    getGiftsOfHolidays(holiday){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            let headers = new Headers();
+            headers.append('Authorization', currentUser.token); 
+            return this.http.get(baseUrl+'/get_holiday/'+holiday._id, {headers: headers})
+            .map(res => res.json());
+        }
+    }  
 }
