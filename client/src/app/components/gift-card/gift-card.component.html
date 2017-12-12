@@ -1,6 +1,6 @@
-<div class="col-sm-3 col-md-3"  (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)">
+<div class="col-sm-3 col-md-3 gift"  (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)">
   <div class="thumbnail col-md-11">
-    <div  routerLink='/gift/{{gift.name}}' [queryParams]="{'gift': gift.href}" >
+    <div class="gift-container" routerLink='/gift/{{gift.name}}' [queryParams]="{'gift': gift.href, 'gift_id': gift._id}" >
       <img id="gift-img" src="{{gift.imageUrl}}" alt="">
       <br>
       <div *ngIf="!active" class="col-md-offset-1">

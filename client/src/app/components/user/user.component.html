@@ -29,16 +29,16 @@
             <span class="tag tag-default tag-pill float-xs-right"></span>
             Действия
           </li>
-          <li class="list-group-item">
-            <span class="tag tag-default tag-pill float-xs-right">
-             
+          <li class="list-group-item" (click)="showAddNewGiftPopup()">
+            <span class="tag tag-default tag-pill float-xs-right" >
+              Добавить подарок
             </span>
           </li>
         </ul>
         <div class="list col-md-9">
-          <p *ngFor="let gift of favorites">
+          <div *ngFor="let gift of favorites">
             <gift-card [gift]="gift" [type]="'favorites'"  [person]="''"></gift-card>
-          </p>
+          </div>
           <div class="col-md-offset-1" *ngIf="favorites.length === 0" >
               <h1>Нет подарков в избранное</h1>
           </div>
@@ -60,12 +60,12 @@
         <fieldset>       
           <div class="form-group block img-block col-md-offset-3 col-md-12">
             <div  class=" col-md-offset-1 col-md-2 user-img">
-              <img id='user-image' src="{{newPerson.imageUrl}}">
+              <img id='image' src="{{newPerson.imageUrl}}">
             </div>
             <div class="col-md-8">
               <div class="img_upload">
                   <div class="img-label">Изменить фото</div>
-                  <input type="file" (change)="uploadFile($event)">
+                  <input type="file" (change)="uploadFile($event, newPerson)">
                   
               </div>
             </div>
@@ -96,4 +96,50 @@
     </div>
   </div>
   
+</popup>
+
+
+
+
+<popup  #popup4 (confirmClick)="addNewGiftEvent()">
+  <div> 
+    <div>      
+      <div class="form-horizontal">
+        <fieldset>
+          <div class="form-group block img-block col-md-offset-3 col-md-12">
+            <div  class=" col-md-offset-1 col-md-2 gift-img">
+              <img id='image' src="{{newGift.imageUrl}}">
+            </div>
+            <div class="col-md-8">
+              <div class="img_upload">
+                  <div class="img-label">Изменить картинку</div>
+                  <input type="file" (change)="uploadFile($event, newGift)">                  
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Название подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Название подарка" [(ngModel)]="newGift.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Стоимость подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Стоимость подарка" [(ngModel)]="newGift.price">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Ссылка на сайт подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Ссылка на сайт подарка" [(ngModel)]="newGift.href">
+            </div>
+            <div class="col-lg-offset-4 col-lg-8">
+              (если есть)
+            </div>
+          </div>          
+        </fieldset>
+      </div>
+    </div>
+  </div>  
 </popup>

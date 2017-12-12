@@ -12,7 +12,7 @@ import {DropdownModule} from "ng2-dropdown";
 export class NavbarComponent implements OnInit {
   username: string = '';
   id: number;
-  currentUser;
+  currentUser = null;
  // currentUser;
 
   constructor(private localStorageService: LocalStorageService,
@@ -41,7 +41,8 @@ export class NavbarComponent implements OnInit {
               this.username = '';
               this.id = null;
               localStorage.removeItem('currentUser');
-              this.router.navigate(['/']);            
+              currentUser =null;
+              this.router.navigate(['/login']);            
           }
       });
     };

@@ -70,7 +70,7 @@
 }
 
 .holiday-menu{
-    color: white;
+   
 }
 
 .dropdown-menu{
@@ -83,4 +83,49 @@
 
 .holiday-gifts{
     margin: 10px 0px 10px 0px;
+    overflow: hidden;
+}
+
+
+
+.img-label{
+    height: 100px; 
+    text-align: center;  
+    padding: 40px 0px 0px 40px; 
+}
+.img-block:hover{
+    background-color: #F6F4EF; 
+}
+
+.img_upload{
+    display: block;
+    position: relative;
+    overflow: hidden;
+    font-size: 1em;          
+    height: 100px;
+    width: 100%;               
+}
+
+.img_upload input[type=file]{
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    height: 100px;
+    width: 100%; 
+}
+
+.gift-img > img{
+    height: 100px; 
+    text-align: center;   
+}
+.gift-img{
+    padding: 0px 0px 0px 0px;
+}
+
+
+.block{
+    background-color: #f8f3e4;
+    border: 1px solid rgba(65,54,42,0.13725);
+    border-radius: 6px;
+    margin-left: 0px;
 }

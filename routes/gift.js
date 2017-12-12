@@ -12,14 +12,31 @@ var UserModel =  require('../models').UserModel;
 var HolidayModel =  require('../models').HolidayModel;
 
 router.post('/gift', function(req, res, next) { 
-    if(!req.body.href){
+    if(!req.body.gift){
         return res.send({ error: 'Incorrected data' });
     }
-    getResults(req.body.href, parseYlet, function(gift){
-        return res.send({
-            success: true,
-            gift: gift});           
-    });
+    if(req.body.gift._id){
+        GiftModel.findOne({'_id': req.body.gift._id}, function(err, gift){
+            if (err) {
+                res.statusCode = 500;
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            } else {
+                if(gift){
+                    return res.send({
+                        success: true,
+                        gift: gift}); 
+                }
+            }
+
+        });
+    } else {
+        getResults(req.body.gift.href, parseYlet, function(gift){
+            return res.send({
+                success: true,
+                gift: gift});           
+        });
+    }
 });
 
 var  getResults =function(url, parser, callback){
@@ -88,7 +105,7 @@ router.post('/add_gift_to_favorites',function(req, res, next) {
                 GiftModel.find({'name': req.body.name} , function (err, gifts) {
                     if (err) {
                         res.statusCode = 500;
-                        log.error('Internal error(%d): %s',res.statusCode,err.message);
+                        console.log('Internal error(%d): %s',res.statusCode,err.message);
                         return res.send({ error: 'Server error' });
                     } else {
                         if(gifts.length === 0)

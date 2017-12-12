@@ -1,6 +1,4 @@
 <app-navbar></app-navbar>
 <div class="container">
-  <p *ngFor="let gift of gifts">
-    <product-card [gift]="gift" ></product-card>
-  </p>
+  <product-card *ngFor="let gift of gifts" [gift]="gift" ></product-card>
 </div>

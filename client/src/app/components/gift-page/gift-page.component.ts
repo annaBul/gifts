@@ -19,7 +19,8 @@ export class GiftPageComponent implements OnInit {
     name: '',
     imageUrl: '',
     price:'',
-    href: ""
+    href: "",
+    _id: null
   };
   private querySubscription: Subscription;
   constructor(private route: ActivatedRoute,
@@ -29,8 +30,11 @@ export class GiftPageComponent implements OnInit {
     private popup:Popup){
        
       this.querySubscription = route.queryParams.subscribe(
-          (queryParam: any) => {
-              this.gift.href = queryParam['gift'];
+          (queryParam: any) => {            
+              this.gift.href= queryParam['gift'];
+              if(queryParam['gift_id']){
+                this.gift._id= queryParam['gift_id'];
+              }
               this.loadGift();
           }
       );

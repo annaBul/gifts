@@ -11,8 +11,8 @@
           </span>
         </li>
         <li class="list-group-item">
-          <span class="tag tag-default tag-pill float-xs-right" (click)="a">
-            Удалить друга
+          <span class="tag tag-default tag-pill float-xs-right" (click)="showAddNewGiftPopup()">
+            Добавить подарок
           </span>
         </li>
         <li class="list-group-item">
@@ -21,8 +21,8 @@
           </span>
         </li>
         <li class="list-group-item">
-          <span class="tag tag-default tag-pill float-xs-right" (click)="DeleteHolidayPopup()">
-            Удалить событие
+          <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+            Удалить друга
           </span>
         </li>
       </ul>
@@ -46,28 +46,24 @@
       <tab title="События" [active]="true">
           <div class="list-group holidays">
               <ul class="list-group">
-                <div  *ngFor="let holiday of person.holidays">
-                <li class="list-group-item active">
-                  <span class="tag tag-default tag-pill float-xs-right" (click)="showOrHideGiftsOfHoliday(holiday)">
-                    {{holiday.name}}
-                  </span>
-                  <span class="dropdown float-xs-right  navbar-right"  dropdown > 
-                    <a dropdown-open  class="holiday-menu" >Действие<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li (click)="y"><a>Редактировать</a></li>
-                      <li class="divider"></li>
-                      <li (click)="DeleteHoliday(holiday)"><a>Удалить</a></li>                      
-                    </ul>
-                  </span>
-                  
-                </li>
-                <div class="holiday-gifts" *ngIf="holiday.gifts.length !=0" >
-                  <p *ngFor="let gift of holiday.gifts">
-                    <gift-card [gift]="gift" [type]="'holiday-gift'"  [person]="person"></gift-card>
-                  </p>
-                </div>
+                  <li class="list-group-item" *ngFor="let holiday of person.holidays">
+                    <span class="tag tag-default tag-pill float-xs-right" (click)="showOrHideGiftsOfHoliday(holiday)">
+                      {{holiday.name}}
+                    </span>
+                    <span class="dropdown float-xs-right  navbar-right"  dropdown > 
+                      <a dropdown-open  class="holiday-menu" >Действие<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li (click)="y"><a>Редактировать</a></li>
+                        <li class="divider"></li>
+                        <li (click)="DeleteHoliday(holiday)"><a>Удалить</a></li>                      
+                      </ul>
+                    </span>
+                      <div class="holiday-gifts" *ngIf="holiday.gifts.length !=0" >
+                        <gift-card *ngFor="let gift of holiday.gifts" [gift]="gift" [type]="'holiday-gift'"  [person]="person"></gift-card>                      
+                      </div>
+                  </li>
+                 
                 
-                </div>
               </ul>
           </div>
         <!--div class="list col-md-9">
@@ -121,3 +117,50 @@
     </div>
     
   </popup>
+
+
+
+
+
+<popup  #popup4 (confirmClick)="addNewGiftEvent()">
+  <div> 
+    <div>      
+      <div class="form-horizontal">
+        <fieldset>
+          <div class="form-group block img-block col-md-offset-3 col-md-12">
+            <div  class=" col-md-offset-1 col-md-2 gift-img">
+              <img id='image' src="{{newGift.imageUrl}}">
+            </div>
+            <div class="col-md-8">
+              <div class="img_upload">
+                  <div class="img-label">Изменить картинку</div>
+                  <input type="file" (change)="uploadFile($event)">                  
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Название подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Название подарка" [(ngModel)]="newGift.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Стоимость подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Стоимость подарка" [(ngModel)]="newGift.price">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="holiday-name" class="col-lg-4 control-label">Ссылка на сайт подарка</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="inputDefault" placeholder="Ссылка на сайт подарка" [(ngModel)]="newGift.href">
+            </div>
+            <div class="col-lg-offset-4 col-lg-8">
+              (если есть)
+            </div>
+          </div>          
+        </fieldset>
+      </div>
+    </div>
+  </div>  
+</popup>

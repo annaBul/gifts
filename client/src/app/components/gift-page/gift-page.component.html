@@ -26,7 +26,7 @@
             <h3 class='gift-data'>{{gift.name}}</h3>
 
             <h3 class='gift-data'>{{gift.price}}</h3>
-            <a class="gift-data href" href={{gift.href}}>Перейти на сайт подарка</a>
+            <a  *ngIf="gift.href != ''" class="gift-data href" href={{gift.href}}>Перейти на сайт подарка</a>
 
         </div>
       </div>      

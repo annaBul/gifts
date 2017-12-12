@@ -42,10 +42,10 @@
                 <li><a routerLink="/user/{{id}}">Профиль</a></li>
                 <li *ngIf='currentUser["role"] === "Admin"' id="adminMenu"><a routerLink="admin/users">Админка</a></li>
                 <li class="divider"></li>
-                <li><a id="logOut" (click)="logout($event)">Выйти</a></li>
               </ul>
             </li>
-            <li><button type="submit" id="btn-signIn" routerLink="/login" class="btn btn-default">Войти</button></li>
+            <li *ngIf='currentUser== null'><button type="submit" id="btn-signIn" routerLink="/login" class="btn btn-default">Войти</button></li>
+            <li *ngIf='currentUser != null'><button type="submit" id="btn-signIn" (click)="logout($event)" class="btn btn-default">Выйти</button></li>
           </ul>
         </div>
       </form>

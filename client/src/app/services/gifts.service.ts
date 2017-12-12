@@ -18,7 +18,7 @@ export class GiftsService {
   getGift(gift){    
     var headers = new Headers();
     headers.append('Content-Type', 'application/json'); 
-    return this.http.post(baseUrl+"/gift", JSON.stringify(gift), {headers: headers})
+    return this.http.post(baseUrl+"/gift", JSON.stringify({gift}), {headers: headers})
         .map(res => res.json());
   }   
 

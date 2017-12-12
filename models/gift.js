@@ -12,6 +12,7 @@ var Gift = new Schema({
     },
     href: {
         type: String,
+        default: '',
     },
     imageUrl: {
         type: String,
@@ -24,6 +25,10 @@ var Gift = new Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        default: "user-gift"
+    }
    /* price: {
         type: Number,
         required: true,
