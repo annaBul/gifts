@@ -21,7 +21,7 @@
           </span>
         </li>
         <li class="list-group-item">
-          <span class="tag tag-default tag-pill float-xs-right" (click)="a">
+          <span class="tag tag-default tag-pill float-xs-right" (click)="DeletePerson()">
             Удалить друга
           </span>
         </li>
@@ -62,19 +62,13 @@
                         <gift-card *ngFor="let gift of holiday.gifts" [gift]="gift" [type]="'holiday-gift'"  [person]="person"></gift-card>                      
                       </div>
                   </li>
-                 
+
+                  <div class="col-md-offset-1" *ngIf="person.holidays.length === 0" >
+                      <h1>Нет событий</h1>
+                  </div>                 
                 
               </ul>
           </div>
-        <!--div class="list col-md-9">
-          <div *ngFor="let person of people">
-            <app-card [person]="person"></app-card>
-          </div>
-
-          <div class="col-md-offset-1" *ngIf="people.length === 0" >
-              <h1>Нет людей</h1>
-          </div>
-        </div-->
       </tab>
       <tab title="Подарки">
         <div class="">

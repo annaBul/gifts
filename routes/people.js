@@ -80,6 +80,28 @@ router.post('/add_person',function(req, res, next) {
    } )(req, res, next)  
  });
 
+ router.delete('/delete_person/:id', function(req, res, next) {
+    passport.authenticate('jwt', function (err, user) {  
+        if(err){
+           return res.send({error: "Some error!"});
+        }
+        if (!user) {  
+            return res.send({error: "User don't found!"});
+        }             
+        PersonModel.remove({ '_id':req.params.id} , function (err, person) {
+            if (err) {
+                res.statusCode = 500;
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            } else {                
+                return res.send({
+                    success: true
+                });
+            }
+        });
+
+    } )(req, res, next);    
+});
 
  router.post('/create_holiday',function(req, res, next) {    
     passport.authenticate('jwt', function (err, user) {         

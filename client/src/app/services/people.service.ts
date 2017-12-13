@@ -75,6 +75,16 @@ export class PeopleService{
         }
     }
 
+    DeletePerson(person){
+        if(localStorage.getItem('currentUser')){
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            var headers = new Headers();
+            headers.append('Authorization', currentUser.token); 
+            return this.http.delete(baseUrl+'/delete_person/'+ person._id, {headers: headers})
+                .map(res => res.json());
+        }
+    }
+
     getGiftsOfHolidays(holiday){
         if(localStorage.getItem('currentUser')){
             var currentUser = JSON.parse(localStorage.getItem('currentUser'));

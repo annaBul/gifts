@@ -11,8 +11,9 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav">
-        <!--li class="active" id="create-project"><a routerLink='/create_project'>Create project <span class="sr-only">(current)</span></a></li-->
+      <ul class="nav navbar-nav" *ngIf="username">
+        <li *ngIf='currentUser["role"] !== "Admin"' class="active"><a routerLink="/user/{{id}}">Профиль<span class="sr-only">(current)</span></a></li>
+        <li *ngIf='currentUser["role"] === "Admin"' id="adminMenu" class="active"><a routerLink="admin/users">Админка</a></li>
         <!--li><a href="#">Find project</a></li>
         <li class="dropdown" dropdown>
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" dropdown-open  aria-expanded="false">Settings <span class="caret"></span></a>
@@ -37,13 +38,7 @@
         <div class="form-group">
           <ul class="nav navbar-nav">
             <li class="dropdown"  dropdown *ngIf="username"> 
-              <a dropdown-open  id="user-menu" >{{username}}<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a routerLink="/user/{{id}}">Профиль</a></li>
-                <li *ngIf='currentUser["role"] === "Admin"' id="adminMenu"><a routerLink="admin/users">Админка</a></li>
-                <li class="divider"></li>
-              </ul>
-            </li>
+              <a dropdown-open  id="user-menu" >{{username}}</a>             
             <li *ngIf='currentUser== null'><button type="submit" id="btn-signIn" routerLink="/login" class="btn btn-default">Войти</button></li>
             <li *ngIf='currentUser != null'><button type="submit" id="btn-signIn" (click)="logout($event)" class="btn btn-default">Выйти</button></li>
           </ul>

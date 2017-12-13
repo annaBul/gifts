@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import { Router} from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
 import {PeopleService} from '../../services/people.service';
 import {GiftsService} from '../../services/gifts.service';
@@ -33,6 +34,7 @@ export class PersonPageComponent implements OnInit {
   
   private routeSubscription: Subscription;
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private peopleService: PeopleService,
     private giftsService: GiftsService,
     private popup:Popup){
@@ -63,13 +65,24 @@ export class PersonPageComponent implements OnInit {
     });
   }
 
+  DeletePerson(){
+    if(localStorage.getItem('currentUser')){
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.peopleService.DeletePerson( this.person)
+      .subscribe(res => {
+        if(res.success){        
+          this.router.navigate(['/user/'+currentUser.id]);
+        }  
+      });
+    }
+  }
+
   showOrHideGiftsOfHoliday(holiday){
     if(holiday.gifts.length == 0){
       this.peopleService.getGiftsOfHolidays(holiday)
       .subscribe(res => {
         if(res.holiday){      
           this.person.holidays[this.person.holidays.map(day => day._id).indexOf(holiday._id)] = res.holiday;
-          console.log(this.person.holidays);
         }  
       });
     } else {
