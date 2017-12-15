@@ -106,7 +106,7 @@ export class UserComponent implements OnInit, OnDestroy {
    
   showAddNewPersonPopup(){
     this.popup1.options = {
-      header: "Добавление человека",
+      header: "Добавление друга",
       color: "rgb(92, 32, 64)",  
       widthProsentage: 40, 
       animationDuration: 0.5, 
